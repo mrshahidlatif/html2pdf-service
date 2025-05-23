@@ -1,0 +1,4 @@
+Flask==3.0.2
+WeasyPrint==60.2
+pydyf==0.8.0
+gunicorn==21.2.0
