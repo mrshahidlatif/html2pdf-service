@@ -37,4 +37,15 @@ Thumbs.db
 
 # Project specific
 *.pdf
-*.log 
+*.log
+
+# Test & Coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Docker
+*.pid
+*.tar
+# Ignore Docker local volumes
+volumes/ 

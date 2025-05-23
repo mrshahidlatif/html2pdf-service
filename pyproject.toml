@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "html2pdf-service"
-version = "0.1.0"
+version = "0.0.1"
 description = "A lightweight microservice that converts HTML content to PDF using WeasyPrint"
 readme = "README.md"
 requires-python = ">=3.8"
@@ -28,7 +28,8 @@ Homepage = "https://github.com/mrshahlatif/html2pdf-service"
 Repository = "https://github.com/mrshahidlatif/html2pdf-service.git"
 
 [tool.setuptools]
-packages = ["html2pdf_service"]
+package-dir = {"" = "src"}
+packages = {find = {where = ["src"]}}
 
 [tool.black]
 line-length = 88
