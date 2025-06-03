@@ -48,4 +48,6 @@ htmlcov/
 *.pid
 *.tar
 # Ignore Docker local volumes
-volumes/ 
+volumes/
+
+.env

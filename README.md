@@ -39,7 +39,7 @@ pip install -r requirements.txt
 3. Run the service:
 
 ```bash
-gunicorn service:app
+PYTHONPATH=src gunicorn src.service:app
 ```
 
 ## Running Tests

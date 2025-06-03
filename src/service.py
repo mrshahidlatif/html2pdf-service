@@ -1,6 +1,7 @@
 from flask import Flask, request, send_file, jsonify
 from weasyprint import HTML, CSS
 import io
+from clerk_auth import verify_clerk_token
 
 app = Flask(__name__)
 
@@ -15,6 +16,19 @@ def render_pdf():
 
     if not html:
         return "Missing HTML content", 400
+    
+    auth_header = request.headers.get('Authorization')
+    if not auth_header or not auth_header.startswith("Bearer "):
+        return jsonify({"error": "Missing auth token"}), 401
+
+    token = auth_header.split(" ")[1]
+
+    try:
+        payload = verify_clerk_token(token)
+        user_id = payload['sub']
+    except Exception as e:
+        return jsonify({"error": "Invalid token", "details": str(e)}), 403
+
 
     pdf_file = io.BytesIO()
     HTML(string=html).write_pdf(pdf_file, stylesheets=[CSS(string=css)] if css else [])
