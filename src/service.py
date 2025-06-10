@@ -34,10 +34,27 @@ def render_pdf():
         options = json.loads(options_raw)
     except json.JSONDecodeError:
         return jsonify({"error": "Invalid options JSON"}), 400
+    
+
+    WATERMARK_CSS = """
+        body::after {
+        content: "Templify | www.ukkaab.com";
+        position: fixed;
+        bottom: 0cm;
+        right: 0cm;
+        font-size: 12px;
+        color: rgba(0, 0, 0, 0.50);
+        pointer-events: none;
+        z-index: 9999;
+        }
+        """
+    
+    stylesheets = [CSS(string=css)] if css else []
+    stylesheets.append(CSS(string=WATERMARK_CSS))
 
     # Optional write_pdf args
     write_pdf_args = {
-        "stylesheets": [CSS(string=css)] if css else None,
+        "stylesheets": stylesheets,
         "media_type": options.get("media_type"),
         "attachments": options.get("attachments"),
         "pdf_identifier": options.get("pdf_identifier", "").encode() if options.get("pdf_identifier") else None,
